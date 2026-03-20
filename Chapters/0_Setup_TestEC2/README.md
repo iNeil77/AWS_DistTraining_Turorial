@@ -56,7 +56,7 @@ pip install boto3 botocore awscli \
      uv
 ```
 
-**Step 3:** Build the docker images for training the reward model. You can find the Dockerfile for the reward model training [here](../../Environment/Axolotl.Dockerfile). Navigate to the directory containing the Dockerfile and build the image using the following command:
+**Step 3:** Build the docker images for training and evaluating the reward model. You can find the Dockerfile for the reward model training [here](../../Environment/Axolotl.Dockerfile). We instrument the environment with the necessary dependencies for training and evaluating the reward model, including the Axolotl framework and its dependencies, as well as the reward-bench evaluation suite. Navigate to the directory containing the Dockerfile and build the image using the following command:
 
 ```# Navigate to the Environment directory containing the Dockerfile
 cd ../../Environment
