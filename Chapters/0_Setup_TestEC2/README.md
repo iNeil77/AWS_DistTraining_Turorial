@@ -56,6 +56,19 @@ pip install boto3 botocore awscli \
      uv
 ```
 
-**Step 3:** Build the docker images for training the reward model. You can find the Dockerfile for the reward model training [here](./Dockerfile). Navigate to the directory containing the Dockerfile and build the image using the following command:
+**Step 3:** Build the docker images for training the reward model. You can find the Dockerfile for the reward model training [here](../../Environment/Axolotl.Dockerfile). Navigate to the directory containing the Dockerfile and build the image using the following command:
 
-```# Navigate to the Dockerfiles directory
+```# Navigate to the Environment directory containing the Dockerfile
+cd ../../Environment
+
+# Build the docker image for reward model training
+docker build -t username/reward_model_training:latest -f Axolotl.Dockerfile .
+```
+
+**Step 4:** Cleanup the instance and create a custom AMI. After installing the necessary dependencies and tools, you can create a custom AMI from the instance. This will allow you to launch new instances with all the dependencies pre-installed, saving time and effort in the future. To create an AMI, go to the EC2 console, select the instance, and click on "Actions" > "Image and Templates" > "Create Image". Provide a name and description for the AMI and click "Create Image". Once the AMI is created, you can use it to launch new instances with the same configuration. Note that creating an AMI is optional, but it can be beneficial for streamlining the setup process in future chapters. If you choose not to create an AMI, you can simply repeat the installation steps on any new instances that you launch in the future.
+
+![Create AMI](../../Assets/0_Setup_TestEC2/0_EC2_Pane3.png)
+
+![Create AMI](../../Assets/0_Setup_TestEC2/0_EC2_Pane4.png)
+
+Make sure to cleanup the instance before creating the AMI by removing any unnecessary files or data that may have been generated during the setup process. This will help reduce the size of the AMI and ensure that it only contains the necessary dependencies and tools for your training environment. You can use commands like `sudo apt-get clean` to remove cached package files and `rm -rf /path/to/unnecessary/files` to remove any other files that are not needed. Also purging the docker cache can help reduce the size of the AMI, which can be done using the command `docker system prune -a`. This will remove all unused images, containers, and networks, freeing up space on the instance before creating the AMI. Similarly, cleanup any dot folders in the home directory that may contain cached data or configuration files that are not needed for the training environment. This can be done using commands like `rm -rf ~/.cache` and `rm -rf ~/.config`. By cleaning up the instance before creating the AMI, you can ensure that the resulting AMI is as lean and efficient as possible, containing only the necessary dependencies and tools for your training environment.
