@@ -8,12 +8,12 @@ Ths practical tutorial will be using a modified version of the [Axolotl Framewor
 
 ## Contents
 
-1. Setup test EC2 and create final EC2 AMI (Optional) and compile docker images
-2. Create security groups and cluster placement groups
-3. Creat shared FSX storage
-4. Create launch template and maximize network bandwith and optimize Swap and mounting of FSX storage
-5. Launch EC2 instances and bind public IPs and test EFA and FSX storage
-6. Initiate dist training
+1. [Chapter 0](./Chapters/0_Setup_TestEC2/README.md): Setup test EC2 and create final EC2 AMI (Optional) and compile docker images
+2. [Chapter 1](./Chapters/1_Setup_SG_EFA/README.md): Create security groups and cluster placement groups
+3. [Chapter 2](./Chapters/2_Setup_FSX/README.md): Create shared FSX storage
+4. [Chapter 3](./Chapters/3_Create_LaunchTemplate/README.md): Create launch template and maximize network bandwith and optimize Swap and mounting of FSX storage
+5. [Chapter 4](./Chapters/4_Launch_Instance/README.md): Launch EC2 instances and bind public IPs and test EFA and FSX storage
+6. [Chapter 5](./Chapters/5_RM_TrainingEvaluation/README.md): Initiate distributed training of the reward model and evaluate it on rewardbench
 
 ## Prerequisites
 
