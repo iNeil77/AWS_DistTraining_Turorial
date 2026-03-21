@@ -18,7 +18,8 @@ For more information on the DLAMI, please refer to the [DLAMI documentation](htt
 sudo apt-get update && sudo apt-get upgrade -y
 ```
 
-```# Install gh cli
+```bash
+# Install gh cli
 (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
      && sudo mkdir -p -m 755 /etc/apt/keyrings \
      && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
@@ -30,20 +31,23 @@ sudo apt-get update && sudo apt-get upgrade -y
      && sudo apt install gh -y
 ```
 
-```# Install enroot
+```bash
+# Install enroot
 arch=$(dpkg --print-architecture)
 curl -fSsL -O https://github.com/NVIDIA/enroot/releases/download/v4.1.1/enroot_4.1.1-1_${arch}.deb
 curl -fSsL -O https://github.com/NVIDIA/enroot/releases/download/v4.1.1/enroot+caps_4.1.1-1_${arch}.deb # optional
 sudo apt install -y ./*.deb
 ```
 
-```# Install mamba3 and create a specced out environment (optional, useful for debugging and testing out dependencies before baking them into the final AMI)
+```bash
+# Install mamba3 and create a specced out environment (optional, useful for debugging and testing out dependencies before baking them into the final AMI)
 curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
 chmod +x Miniforge3-$(uname)-$(uname -m).sh
 ./Miniforge3-$(uname)-$(uname -m).sh -b -p $HOME/mamba3
 ```
 
-```# Create Admin mamba environment (optional)
+```bash
+# Create Admin mamba environment (optional)
 source $HOME/mamba3/bin/activate
 mamba create -n Admin -y python=3.12 ipython
 pip install boto3 botocore awscli \
@@ -58,7 +62,8 @@ pip install boto3 botocore awscli \
 
 **Step 3:** Build the docker images for training and evaluating the reward model. You can find the Dockerfile for the reward model training [here](../../Environment/Axolotl.Dockerfile). We instrument the environment with the necessary dependencies for training and evaluating the reward model, including the Axolotl framework and its dependencies, as well as the reward-bench evaluation suite. Navigate to the directory containing the Dockerfile and build the image using the following command:
 
-```# Navigate to the Environment directory containing the Dockerfile
+```bash
+# Navigate to the Environment directory containing the Dockerfile
 cd ../../Environment
 
 # Build the docker image for reward model training

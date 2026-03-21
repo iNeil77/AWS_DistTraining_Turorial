@@ -8,11 +8,13 @@ In this chapter, we will cover the training and evaluation of scalar reward mode
 
 For this step, you can either convert your own container or use the pre-compiled docker environment that we provide at [ineil77/axolotl-rm:23032026](https://hub.docker.com/repository/docker/ineil77/axolotl-rm/tags/22032026/).
 
-```bash # Import the docker container to enroot format
+```bash
+# Import the docker container to enroot format
 enroot import docker://ineil77/axolotl-rm:23032026 --o axolotl-rm.sqsh
 ```
 
-```bash # Create the final enroot environment
+```bash
+# Create the final enroot environment
 enroot create --name axolotl-rm axolotl-rm.sqsh
 ```
 
@@ -20,7 +22,8 @@ The above steps must be performed on all the EC2 instances that will be used for
 
 **Step 2:** Prepare the training scripts and axolotl configuration files.
 
-```bash # Create the training directory and add the configuration files
+```bash
+# Create the training directory and add the configuration files
 mkdir -p /mnt/fsx/Reward_Modeling/
 touch /mnt/fsx/Reward_Modeling/32B_RM_Config.yaml
 ```
@@ -29,7 +32,8 @@ We have provided an example axolotl configuration file for training a Bradley-Te
 
 **Step 3:** Launch the training job using the `enroot start` command. This will start the training process on the cluster using the enroot environment that we created in Step 1. You must run this command once on each of the EC2 instances that will be used for training. You must designate one of the instances as the master node and specify its private (not public) IP address in the `--master` flag. This becomnes the rendevous point for the distributed training job, and all other nodes will connect to it to coordinate the training process. The private Ip address can be found in the EC2 console under the "Networking" section of the instance details or also in the bash prompt of the instance itself using the `hostname -I` command.
 
-```bash # Start the training job using enroot (Node 1 - Master Node)
+```bash
+# Start the training job using enroot (Node 1 - Master Node)
 enroot start --root \
     --rw \
     --mount /mnt/fsx/:/mnt/fsx/ \
@@ -48,7 +52,8 @@ enroot start --root \
         --rdzv_backend "c10d" -m axolotl.cli.train --config /mnt/fsx/Reward_Modeling/32B_RM_Config.yaml
 ```
 
-```bash # Start the training job using enroot (Node 2 - Worker Node)
+```bash
+# Start the training job using enroot (Node 2 - Worker Node)
 enroot start --root \
     --rw \
     --mount /mnt/fsx/:/mnt/fsx/ \
@@ -67,9 +72,10 @@ enroot start --root \
         --rdzv_backend "c10d" -m axolotl.cli.train --config /mnt/fsx/Reward_Modeling/32B_RM_Config.yaml
 ```
 
-**Step 4:** Once the training job completes, you can evaluate the performance of the trained reward model again using the `enroot start` command to launch an evaluation job. This will evaluate the performance of the trained reward model on the RewardBench dataset using pairwise accuracy as the evaluation metric. 
+**Step 4:** Once the training job completes, you can evaluate the performance of the trained reward model again using the `enroot start` command to launch an evaluation job. This will evaluate the performance of the trained reward model on the RewardBench dataset using pairwise accuracy as the evaluation metric.
 
-```bash # Start the evaluation job using enroot (Can be run on any node)
+```bash
+# Start the evaluation job using enroot (Can be run on any node)
 enroot start --root \
     --rw \
     --mount /mnt/fsx/:/mnt/fsx/ \
