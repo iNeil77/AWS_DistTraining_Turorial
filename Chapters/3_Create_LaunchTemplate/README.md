@@ -54,9 +54,3 @@ sudo sysctl vm.swappiness=1
 sudo mkdir -p /opt/dlami/nvme/shm
 sudo chmod 777 /opt/dlami/nvme/shm
 ```
-
-**Step 7:** Review all the settings for the launch template and make sure they are correct. Once you are satisfied with the configuration, click on "Create launch template" to create the launch template. Now this launch template can be used to launch EC2 instances that are optimized for multi-node training workloads, with the correct network configuration, storage setup, and automated instance initialization. You can launch multiple instances at a time using this launch template, and they will all be configured correctly for your training workloads, saving you time and effort in the future. We will launch two instances this way for our reward model training in the next chapter.
-
-![Initiate Instance Launch](../../Assets/3_Create_LaunchTemplate/3_LaunchTemplate_Launch.png)
-
-![Launch Template Summary](../../Assets/3_Create_LaunchTemplate/3_LaunchTemplate_Trigger.png)
